@@ -14,7 +14,7 @@ A collection of useful bash scripts for system administration and development ta
   - [💡 Usage](#-usage)
   - [📖 Scripts Documentation](#-scripts-documentation)
     - [🔐 generate\_ssh\_key.sh](#-generate_ssh_keysh)
-    - [👤 create\_user\_with\_sudo.sh](#-create_user_with_sudosh)
+    - [👤 create\_user\_with\_sudo\_privileges.sh](#-create_user_with_sudo_privilegessh)
   - [📝 License](#-license)
 
 ## 🔧 Requirements
@@ -28,7 +28,7 @@ A collection of useful bash scripts for system administration and development ta
 | Script | Description |
 |--------|-------------|
 | `generate_ssh_key.sh` | Generate SSH key pairs with safety checks and customization options |
-| `create_user_with_sudo.sh` | Create new users with sudo privileges and SSH key setup |
+| `create_user_with_sudo_privileges.sh` | Create new users with sudo privileges and SSH key setup |
 
 ## 🚀 Installation
 
@@ -108,7 +108,7 @@ A secure SSH key generator that prevents accidental overwrites and supports mult
 ./generate_ssh_key.sh -e admin@server.com -n legacy_server -t rsa
 ```
 
-### 👤 create_user_with_sudo.sh
+### 👤 create_user_with_sudo_privileges.sh
 
 Creates new users with sudo privileges and optional SSH key setup for server administration.
 
@@ -122,16 +122,16 @@ Creates new users with sudo privileges and optional SSH key setup for server adm
 **Usage:**
 ```bash
 # Must be run as root
-sudo ./create_user_with_sudo.sh <username> [ssh_public_key]
+sudo ./create_user_with_sudo_privileges.sh <username> [ssh_public_key]
 ```
 
 **Examples:**
 ```bash
 # Create user without SSH key
-sudo ./create_user_with_sudo.sh devuser
+sudo ./create_user_with_sudo_privileges.sh devuser
 
 # Create user with SSH key
-sudo ./create_user_with_sudo.sh devuser "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGx... user@example.com"
+sudo ./create_user_with_sudo_privileges.sh devuser "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGx... user@example.com"
 ```
 
 **What it does:**
