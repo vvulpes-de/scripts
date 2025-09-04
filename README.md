@@ -25,10 +25,10 @@ A collection of useful bash scripts for system administration and development ta
 
 ## 📂 Scripts Overview
 
-| Script | Description |
-|--------|-------------|
-| `generate_ssh_key.sh` | Generate SSH key pairs with safety checks and customization options |
-| `create_user_with_sudo_privileges.sh` | Create new users with sudo privileges and SSH key setup |
+|#| Script | Description |
+|--|--------|-------------|
+|1| `generate_ssh_key.sh` | Generate SSH key pairs with safety checks and customization options |
+|2| `create_user_with_sudo_privileges.sh` | Create new users with sudo privileges and SSH key setup |
 
 ## 🚀 Installation
 
@@ -107,39 +107,54 @@ A secure SSH key generator that prevents accidental overwrites and supports mult
 # Generate an RSA key for legacy systems
 ./generate_ssh_key.sh -e admin@server.com -n legacy_server -t rsa
 ```
-
+---
 ### 👤 create_user_with_sudo_privileges.sh
 
 Creates new users with sudo privileges and optional SSH key setup for server administration.
 
 **Features:**
-- ✅ User creation with sudo/wheel privileges
+- ✅ User creation with sudo privileges
 - ✅ Automatic SSH directory setup
-- ✅ SSH key installation support
-- ✅ Cross-distribution compatibility (Ubuntu/CentOS/RHEL)
-- ✅ Safety checks for existing users
+- ✅ SSH key installation support (inline key or key file)
+- ✅ Username validation and safety checks
+- ✅ Dry-run mode for testing
+- ✅ Comprehensive error handling
 
 **Usage:**
 ```bash
 # Must be run as root
-sudo ./create_user_with_sudo_privileges.sh <username> [ssh_public_key]
+sudo ./create_user_with_sudo_privileges.sh [OPTIONS]
 ```
+
+**Parameters:**
+- `--user <username>`: Username to create (default: admin)
+- `--key <ssh_public_key>`: SSH public key string to add
+- `--key-file <path>`: Path to SSH public key file to add
+- `--dry-run`: Show what would be done without making changes
+- `-h, --help`: Show help message
 
 **Examples:**
 ```bash
-# Create user without SSH key
-sudo ./create_user_with_sudo_privileges.sh devuser
+# Create user with default name 'admin'
+sudo ./create_user_with_sudo_privileges.sh --user admin
 
-# Create user with SSH key
-sudo ./create_user_with_sudo_privileges.sh devuser "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGx... user@example.com"
+# Create user with custom name
+sudo ./create_user_with_sudo_privileges.sh --user myuser --key "ssh-rsa AAAAB3NzaC1y..."
+
+# Create user and load SSH key from file
+sudo ./create_user_with_sudo_privileges.sh --user admin --key-file ~/.ssh/id_rsa.pub
+
+# Test what would be done (dry-run mode)
+sudo ./create_user_with_sudo_privileges.sh --user admin --dry-run
 ```
 
 **What it does:**
-1. Creates a new user account
-2. Adds user to sudo/wheel group (depending on distribution)
-3. Sets up SSH directory with correct permissions
+1. Creates a new user account with home directory
+2. Adds user to sudo group for administrative privileges
+3. Sets up SSH directory with correct permissions (700)
 4. Optionally installs provided SSH public key
-5. Provides next steps for SSH access
+5. Sets user password (interactive prompt)
+6. Validates SSH key format if provided
 
 
 ## 📝 License
